@@ -8,6 +8,11 @@ from pygame.locals import *
 
 
 class Background():
+    """
+    背景类，背景可以根据游戏等级切换关卡背景
+    背景可以移动首尾相接
+    """
+
     def __init__(self, bg_size):
         self.bg_height = bg_size[1]
         self.image1 = pg.image.load(
@@ -16,7 +21,7 @@ class Background():
         self.image2 = pg.image.load(
             r"P01_Airforce\images\img_bg_level_1.jpg").convert()
         self.rect2 = self.image2.get_rect()
-        
+
         self.rect1.left, self.rect1.top = (0, 0)
         self.rect2.left, self.rect2.top = (0, self.bg_height)
 
@@ -62,7 +67,6 @@ def main():
         bg.move()
         screen.blit(bg.image1, bg.rect1)
         screen.blit(bg.image2, bg.rect2)
-
 
         # 显示所有元素到屏幕
         pg.display.flip()
