@@ -56,11 +56,33 @@ class Background():
             self.rect2.top = -self.bg_height
 
 
-def game_event_handel():
+def game_event_handel(player1, player2):
+    # 偶尔触发事件用下面的方式判断
     for event in pg.event.get():
         if event.type == QUIT:
             pg.quit()
             sys.exit()
+    
+    # 检测用户的键盘操作 经常触发的事件采用下面的方式效率更高
+    key_pressed = pg.key.get_pressed()
+    # player1 按键控制检测
+    if key_pressed[K_a]:
+        player1.move_left()
+    if key_pressed[K_d]:
+        player1.move_right()
+    if key_pressed[K_w]:
+        player1.move_up()
+    if key_pressed[K_s]:
+        player1.move_down()
+    # player2 按键控制检测
+    if key_pressed[K_LEFT]:
+        player2.move_left()
+    if key_pressed[K_RIGHT]:
+        player2.move_right()
+    if key_pressed[K_UP]:
+        player2.move_up()
+    if key_pressed[K_DOWN]:
+        player2.move_down()
 
 
 def game_bg(bg, screen):
@@ -76,14 +98,14 @@ def game_hero_plane(hero, screen):
 
 
 def main():
-
+    
     # 初始化pygame
     pg.init()
     # 设置背景窗口
     bg_size = bg_width, bg_height = 512, 768
     screen = pg.display.set_mode(bg_size)
     # 游戏等级初始化
-    level = 3
+    level = 1
     # 创建背景
     bg = Background(bg_size, level)
     # 设置窗口名称
@@ -94,18 +116,21 @@ def main():
 
     # 创建英雄飞机
     player1 = hero.HeroPlane(bg_size, 1)
-
+    player2 = hero.HeroPlane(bg_size, 2)
     # 游戏循环
     running = True
     while running:
         clock.tick(fps)  # 设置刷新频率
         # 事件检测
-        game_event_handel()
+        game_event_handel(player1, player2)
         # 绘制背景
         game_bg(bg, screen)
         # 绘制玩家飞机
         game_hero_plane(player1, screen)
-
+        game_hero_plane(player2, screen)
+        # 绘制玩家子弹
+        # 绘制敌人飞机
+        # 绘制敌人子弹
         # 显示所有元素到屏幕
         pg.display.flip()
 
