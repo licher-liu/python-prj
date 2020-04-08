@@ -21,22 +21,22 @@ class Background():
             self.image1 = pg.image.load(
                 r"P01_Airforce\images\img_bg_level_1.jpg").convert()
             self.image2 = pg.image.load(
-             r"P01_Airforce\images\img_bg_level_1.jpg").convert()
+                r"P01_Airforce\images\img_bg_level_1.jpg").convert()
         elif level == 2:
             self.image1 = pg.image.load(
                 r"P01_Airforce\images\img_bg_level_2.jpg").convert()
             self.image2 = pg.image.load(
-             r"P01_Airforce\images\img_bg_level_2.jpg").convert()
+                r"P01_Airforce\images\img_bg_level_2.jpg").convert()
         elif level == 3:
             self.image1 = pg.image.load(
                 r"P01_Airforce\images\img_bg_level_3.jpg").convert()
             self.image2 = pg.image.load(
-             r"P01_Airforce\images\img_bg_level_3.jpg").convert()
+                r"P01_Airforce\images\img_bg_level_3.jpg").convert()
         elif level == 4:
             self.image1 = pg.image.load(
                 r"P01_Airforce\images\img_bg_level_4.jpg").convert()
             self.image2 = pg.image.load(
-             r"P01_Airforce\images\img_bg_level_4.jpg").convert()       
+                r"P01_Airforce\images\img_bg_level_4.jpg").convert()
         # 获取背景矩形
         self.rect1 = self.image1.get_rect()
         self.rect2 = self.image2.get_rect()
@@ -70,6 +70,11 @@ def game_bg(bg, screen):
     screen.blit(bg.image2, bg.rect2)
 
 
+def game_hero_plane(hero, screen):
+    # 英雄飞机处理
+    screen.blit(hero.player_image, hero.player_rect)
+
+
 def main():
 
     # 初始化pygame
@@ -87,6 +92,9 @@ def main():
     fps = 60
     clock = pg.time.Clock()
 
+    # 创建英雄飞机
+    player1 = hero.HeroPlane(bg_size, 1)
+
     # 游戏循环
     running = True
     while running:
@@ -95,6 +103,9 @@ def main():
         game_event_handel()
         # 绘制背景
         game_bg(bg, screen)
+        # 绘制玩家飞机
+        game_hero_plane(player1, screen)
+
         # 显示所有元素到屏幕
         pg.display.flip()
 
