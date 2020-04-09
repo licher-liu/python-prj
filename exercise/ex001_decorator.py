@@ -21,9 +21,9 @@ def runtime():
             start_time = datetime.datetime.now()
             func(*args, **kw)
             end_time = datetime.datetime.now()
-            print("*"*10, "[function:%s]"%func.__name__, "*"*10)
+            print("*"*10, "[function:%s]" % func.__name__, "*"*10)
             print("start： [%s] \nend:    [%s]" % (start_time, end_time))
-            return func
+            return func(*args, **kw)
         return wrapper
     return decorator
 
@@ -33,16 +33,17 @@ def runtime():
 def add(a, b):
     return a + b
 
+
 @log("log message: " + str(now))
 def sub(a, b):
     return a - b
 
 
 def main():
-    sum = add(5, 10)
-    result = sub(10, 5)
+    add_result = add(5, 10)
+    sub_result = sub(10, 5)
 
-    # print(now)
+    print(add_result, sub_result)
 
 
 if __name__ == "__main__":
